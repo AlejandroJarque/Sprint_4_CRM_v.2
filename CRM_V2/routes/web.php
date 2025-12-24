@@ -22,7 +22,8 @@ Route::post('/register', [\App\Http\Controllers\UserController::class, 'register
 
 
 Route::prefix('crm')->middleware('auth')->group(function () {
-        Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profileAction'])
+    
+    Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profileAction'])
     ->name('profile');
 
     Route::put('/profile', [\App\Http\Controllers\UserController::class, 'updateProfileAction'])
