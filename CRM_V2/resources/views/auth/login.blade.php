@@ -1,7 +1,5 @@
 @extends('layout')
 
-@section('simple_header', true)
-
 @section('title', 'Login')
 
 @section('content')
