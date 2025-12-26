@@ -17,7 +17,7 @@ class UserController extends Controller
             ->with('success', 'You are already logged in.');
         }
 
-        return view('users.login');
+        return view('auth.login');
     }
 
     public function loginAction(Request $request)
@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function registerFormAction() 
     {
-        return view('users.register');
+        return view('auth.register');
     }
 
     public function registerAction(Request $request)
@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view('users.profile', [
+        return view('auth.profile', [
             'user' => $user,
         ]);
     }
