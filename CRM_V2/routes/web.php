@@ -53,4 +53,25 @@ Route::prefix('crm')->middleware('auth')->group(function () {
     Route::delete('/clients/{id}', [\App\Http\Controllers\ClientController:: class, 'deleteAction'])
     ->name('clients.delete');
 
+    Route::get('/activities', [\App\Http\Controllers\ActivityController::class, 'indexAction'])
+    ->name('activities.index');
+
+    Route::get('/activities/create', [\App\Http\Controllers\ActivityController::class, 'createAction'])
+    ->name('activities.create');
+
+    Route::post('/activities', [\App\Http\Controllers\ActivityController::class, 'storeAction'])
+    ->name('activities.store');
+
+    Route::get('/activities/{id}', [\App\Http\Controllers\ActivityController::class, 'showAction'])
+    ->name('activities.show');
+
+    Route::get('/activities/{id}/edit', [\App\Http\Controllers\ActivityController::class, 'editAction'])
+    ->name('activities.edit');
+
+    Route::put('/activities/{id}', [\App\Http\Controllers\ActivityController::class, 'updateAction'])
+    ->name('activities.update');
+
+    Route::delete('/activities/{id}', [\App\Http\Controllers\ActivityController::class, 'deleteAction'])
+    ->name('activities.delete');
+
 });
