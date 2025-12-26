@@ -74,4 +74,7 @@ Route::prefix('crm')->middleware('auth')->group(function () {
     Route::delete('/activities/{id}', [\App\Http\Controllers\ActivityController::class, 'deleteAction'])
     ->name('activities.delete');
 
+    Route::get('/', [\App\Http\Controllers\DashboardController::class, 'indexAction'])
+    ->name('crm.dashboard');
+
 });
