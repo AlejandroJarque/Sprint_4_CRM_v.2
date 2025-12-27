@@ -68,8 +68,7 @@
                 class="border-2 border-white border-dotted pl-2"
                 name="phone"
                 id="phone"
-                value="{{ old('phone') }}"
-            >
+                value="{{ old('phone') }}">
 
             @error('phone')
                 <div class="text-red-500">{{ $message }}</div>
