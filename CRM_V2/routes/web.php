@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/login', [\App\Http\Controllers\UserController::class, 'loginFormAction'])
+/*Route::get('/login', [\App\Http\Controllers\UserController::class, 'loginFormAction'])
 ->name('login')
 ->middleware('guest');
 
@@ -18,7 +18,7 @@ Route::get('/register', [\App\Http\Controllers\UserController::class, 'registerF
 ->middleware('guest');
 
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'registerAction'])
-->middleware('guest');
+->middleware('guest');*/
 
 
 Route::prefix('crm')->middleware('auth')->group(function () {
@@ -78,3 +78,5 @@ Route::prefix('crm')->middleware('auth')->group(function () {
     ->name('crm.dashboard');
 
 });
+
+require __DIR__.'/auth.php';
