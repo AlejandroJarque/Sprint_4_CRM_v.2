@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Login')
 
@@ -46,6 +46,15 @@
                     id="password"
                     required
                 >
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label>
+                <input type="checkbox" name="remember">
+                Remember-me
+                </label>
             </div>
 
             <br><br>

@@ -1,29 +1,69 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    <livewire:profile.update-profile-information-form />
-                </div>
+@section('title', 'My Profile')
+
+@section('content')
+
+    <div class="bg-stone-500/90 text-stone-200 m-9 min-h-[28rem] justify-items-center content-center">
+
+        <h1 class="text-2xl">My Profile</h1>
+
+        <br><br>
+
+        @if ($errors->any())
+            <div class="text-red-500">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PUT')
+
+            <div class="form-group">
+                <label class="pr-9" for="name">Name</label>
+                <input
+                    type="text"
+                    class="border-2 border-white border-dotted pl-2"
+                    name="name"
+                    id="name"
+                    value="{{ old('name', $user->name) }}"
+                    required
+                >
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    <livewire:profile.update-password-form />
-                </div>
+            <br>
+
+            <div class="form-group">
+                <label class="pr-10" for="email">Email</label>
+                <input
+                    type="email"
+                    class="border-2 border-white border-dotted pl-2"
+                    name="email"
+                    id="email"
+                    value="{{ old('email', $user->email) }}"
+                    required
+                >
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    <livewire:profile.delete-user-form />
+            <br><br>
+
+            <button class="text-lime-300 hover:text-lime-400 ml-20" type="submit">
+                Save changes
+            </button>
+
+            @if (session('success'))
+                <div class="ml-10 text-lime-400">
+                    {{ session('success') }}
                 </div>
-            </div>
-        </div>
+            @endif
+
+        </form>
+
     </div>
-</x-app-layout>
+
+@endsection
