@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Create Activity')
 
@@ -8,7 +8,7 @@
 
     <h1 class="text-2xl">Add New Activity</h1>
 
-    <br>
+
 
     @if (session('error'))
         <div class="text-red-500">
@@ -28,10 +28,10 @@
         @csrf
 
         <div>
-            <label class="pr-8" for="client_id">Client ID</label>
+            <label class="pr-10" for="client_id">Client ID</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="client_id"
                 id="client_id"
                 value="{{ old('client_id') }}">
@@ -47,7 +47,7 @@
             <label class="pr-10" for="user_id">User ID</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="user_id"
                 id="user_id"
                 value="{{ old('user_id') }}">
@@ -60,10 +60,10 @@
         <br>
 
         <div>
-            <label class="pr-15" for="type">Type</label>
+            <label class="pr-10" for="type">Type</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="type"
                 id="type"
                 value="{{ old('type') }}">
@@ -76,10 +76,10 @@
         <br>
 
         <div>
-            <label class="pr-14" for="activity_date">Date</label>
+            <label class="pr-10" for="activity_date">Date</label>
             <input
                 type="date"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="activity_date"
                 id="activity_date"
                 value="{{ old('activity_date') }}">
@@ -92,10 +92,10 @@
         <br>
 
         <div>
-            <label class="pr-12" for="status">Status</label>
+            <label class="pr-10" for="status">Status</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="status"
                 id="status"
                 value="{{ old('status') }}">

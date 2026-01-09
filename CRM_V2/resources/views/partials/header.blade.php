@@ -8,11 +8,11 @@
             <img
                 src="{{ asset('images/logo.png') }}"
                 alt="Nexora"
-                class="h-20 w-auto m-8"
+                class="h-20 w-auto m-6"
             />
         </a>
 
-        <div class="flex flex-row-reverse ml-100 mt-16 mr-4">
+        <div class="flex flex-row-reverse ml-100 mt-16 mr-4 mb-4">
             <a class="text-lime-200 hover:text-lime-300 pr-10" href="{{ route('login') }}">Login</a>
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('register') }}">Register</a>
         </div>
@@ -26,11 +26,11 @@
             <img
                 src="{{ asset('images/logo.png') }}"
                 alt="Nexora"
-                class="h-20 w-auto m-8"
+                class="h-20 w-auto m-6"
             />
         </a>
 
-        <div class="flex flex-row ml-100 mt-16 mr-4">
+        <div class="flex flex-row ml-100 mt-16 mr-4 mb-4">
             <a class="text-lime-200 hover:text-lime-300 pr-10" href="{{ route('crm.dashboard') }}">Dashboard</a>
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('clients.index') }}">Clients</a>
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('activities.index') }}">Activities</a>

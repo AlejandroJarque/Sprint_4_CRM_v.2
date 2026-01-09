@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Create Client')
 
@@ -28,10 +28,10 @@
         @csrf
 
         <div>
-            <label class="pr-18" for="name">Name</label>
+            <label class="pr-10" for="name">Name</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="name"
                 id="name"
                 value="{{ old('name') }}"
@@ -45,10 +45,10 @@
         <br>
 
         <div>
-            <label class="pr-19" for="email">Email</label>
+            <label class="pr-10" for="email">Email</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="email"
                 id="email"
                 value="{{ old('email') }}"
@@ -62,10 +62,10 @@
         <br>
 
         <div>
-            <label class="pr-17" for="phone">Phone</label>
+            <label class="pr-10" for="phone">Phone</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="phone"
                 id="phone"
                 value="{{ old('phone') }}">
@@ -78,10 +78,10 @@
         <br>
 
         <div>
-            <label class="pr-14" for="address">Address</label>
+            <label class="pr-10" for="address">Address</label>
             <input
                 name="address"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="address"
             >{{ old('address') }}</input>
 

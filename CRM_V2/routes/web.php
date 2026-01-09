@@ -1,36 +1,33 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/login', [\App\Http\Controllers\UserController::class, 'loginFormAction'])
-->name('login')
-->middleware('guest');
-
-Route::post('/login', [\App\Http\Controllers\UserController::class, 'loginAction'])
-->middleware('guest');
-
-Route::get('/register', [\App\Http\Controllers\UserController::class, 'registerFormAction'])
-->name('register')
-->middleware('guest');
-
-Route::post('/register', [\App\Http\Controllers\UserController::class, 'registerAction'])
-->middleware('guest');
-
-
 Route::prefix('crm')->middleware('auth')->group(function () {
-    
-    Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profileAction'])
-    ->name('profile');
 
-    Route::put('/profile', [\App\Http\Controllers\UserController::class, 'updateProfileAction'])
-    ->name('profile.update');
+    Route::get('/profile', function (Request $request) {
+        return view('profile', [
+            'user' => $request->user(),
+        ]);
+    })->name('profile');
 
-    Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logoutAction'])
-    ->name('logout');
+    Route::put('/profile', function (Request $request) {
+        $request->user()->update(
+            $request->validate([
+                'name'  => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+            ])
+        );
+
+        return back()->with('success', 'Profile updated');
+    })->name('profile.update');
 
     Route::get('/clients', [\App\Http\Controllers\ClientController::class, 'indexAction'])
     ->name('clients.index');
@@ -78,3 +75,5 @@ Route::prefix('crm')->middleware('auth')->group(function () {
     ->name('crm.dashboard');
 
 });
+
+require __DIR__.'/auth.php';

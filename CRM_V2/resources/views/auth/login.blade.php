@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Login')
 
@@ -27,10 +27,10 @@
                 <label class="pr-10" for="email">Email</label>
                 <input
                     type="email"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="email"
                     id="email"
-                    value="{{ old('email') }}"
+                    value="{{ old('email') }}" 
                     required
                 >
             </div>
@@ -41,11 +41,20 @@
                 <label class="pr-3" for="password">Password</label>
                 <input
                     type="password"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="password"
                     id="password"
                     required
                 >
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label>
+                <input type="checkbox" name="remember">
+                Remember-me
+                </label>
             </div>
 
             <br><br>

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Dashboard')
 
@@ -12,7 +12,7 @@
 
     <section class="cards">
         <div class="flex items-center">
-            <h2 class="pr-19">Total Clients:</h2>
+            <h2 class="pr-10">Total Clients:</h2>
             <p class="pl-2">{{ $clientsCount }}</p>
         </div>
 

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'My Profile')
 
@@ -28,7 +28,7 @@
                 <label class="pr-9" for="name">Name</label>
                 <input
                     type="text"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="name"
                     id="name"
                     value="{{ old('name', $user->name) }}"
@@ -42,7 +42,7 @@
                 <label class="pr-10" for="email">Email</label>
                 <input
                     type="email"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="email"
                     id="email"
                     value="{{ old('email', $user->email) }}"
