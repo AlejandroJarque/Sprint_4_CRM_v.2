@@ -28,10 +28,10 @@
 
 
         <div>
-            <label class="pr-13" for="name">Name</label>
+            <label class="pr-10" for="name">Name</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="name"
                 name="name"
                 value="{{ old('name', $client->name) }}"
@@ -45,10 +45,10 @@
         <br>
 
         <div>
-            <label class="pr-14" for="email">Email</label>
+            <label class="pr-10" for="email">Email</label>
             <input
                 type="email"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="email"
                 name="email"
                 value="{{ old('email', $client->email) }}"
@@ -62,10 +62,10 @@
         <br>
 
         <div>
-            <label class="pr-12" for="phone">Phone</label>
+            <label class="pr-10" for="phone">Phone</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="phone"
                 name="phone"
                 value="{{ old('phone', $client->phone) }}"
@@ -79,10 +79,10 @@
         <br>
 
         <div>
-            <label class="pr-9" for="address">Address</label>
+            <label class="pr-10" for="address">Address</label>
             <input
                 id="address"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 name="address"
                 value="{{ old('address', $client->address) }}">
 

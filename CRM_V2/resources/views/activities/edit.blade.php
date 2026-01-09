@@ -27,10 +27,10 @@
         @method('PUT')
 
         <div>
-            <label class="pr-13" for="client_id">Client ID</label>
+            <label class="pr-10" for="client_id">Client ID</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="client_id"
                 name="client_id"
                 value="{{ old('client_id', $activity->client_id) }}"
@@ -44,10 +44,10 @@
         <br>
 
         <div>
-            <label class="pr-15" for="user_id">User ID</label>
+            <label class="pr-10" for="user_id">User ID</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="user_id"
                 name="user_id"
                 value="{{ old('user_id', $activity->user_id) }}">
@@ -60,10 +60,10 @@
         <br>
 
         <div>
-            <label class="pr-19" for="type">Type</label>
+            <label class="pr-10" for="type">Type</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="type"
                 name="type"
                 value="{{ old('type', $activity->type) }}">
@@ -76,10 +76,10 @@
         <br>
 
         <div>
-            <label class="pr-19" for="activity_date">Date</label>
+            <label class="pr-10" for="activity_date">Date</label>
             <input
                 type="date"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="activity_date"
                 name="activity_date"
                 value="{{ old('activity_date', $activity->activity_date) }}">
@@ -92,10 +92,10 @@
         <br>
 
         <div>
-            <label class="pr-16" for="status">Status</label>
+            <label class="pr-10" for="status">Status</label>
             <input
                 type="text"
-                class="border-2 border-white border-dotted pl-2"
+                class="border-2 border-white border-dotted text-black pl-2"
                 id="status"
                 name="status"
                 value="{{ old('status', $activity->status) }}">

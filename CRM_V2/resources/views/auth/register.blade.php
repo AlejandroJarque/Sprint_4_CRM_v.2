@@ -24,10 +24,10 @@
             @csrf
 
             <div class="form-group">
-                <label class="pr-24" for="name">Name</label>
+                <label class="pr-9" for="name">Name</label>
                 <input 
                     type="text"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="name"
                     id="name"
                     value="{{ old('name') }}"
@@ -38,10 +38,10 @@
             <br>
 
             <div class="form-group">
-                <label class="pr-25" for="email">Email</label>
+                <label class="pr-10" for="email">Email</label>
                 <input
                     type="email"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="email"
                     id="email"
                     value="{{ old('email') }}"
@@ -52,10 +52,10 @@
             <br>
 
             <div class="form-group">
-                <label class="pr-18" for="password">Password</label>
+                <label class="pr-10" for="password">Password</label>
                 <input
                     type="password"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="password"
                     id="password"
                     required
@@ -65,10 +65,10 @@
             <br>
 
             <div class="form-group">
-                <label class="pr-3" for="password_confirmation">Confirm Password</label>
+                <label class="pr-10" for="password_confirmation">Confirm Password</label>
                 <input
                     type="password"
-                    class="border-2 border-white border-dotted pl-2"
+                    class="border-2 border-white border-dotted text-black pl-2"
                     name="password_confirmation"
                     id="password_confirmation"
                     required
