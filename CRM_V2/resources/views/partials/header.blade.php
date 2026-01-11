@@ -35,12 +35,13 @@
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('clients.index') }}">Clients</a>
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('activities.index') }}">Activities</a>
             <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('profile') }}">Profile</a>
+            <a class="text-lime-200 hover:text-lime-300 pr-12" href="{{ route('post') }}">Post</a>
         </div>
 
         <div class="ml-100 mt-16 mr-4">
             <form method="POST" action="{{ route('logout') }}">
             @csrf
-                 <button class="text-blue-300 hover:text-blue-400" type="submit">
+                 <button class="text-blue-300 hover:text-blue-400 mb-4" type="submit">
                     Logout
                 </button>
             </form>

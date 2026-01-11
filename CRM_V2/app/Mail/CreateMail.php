@@ -14,17 +14,16 @@ class CreateMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public string $title;
+    public string $post;
+
+    public function __construct(string $title, string $post)
     {
-        //
+        $this->title = $title;
+        $this->post  = $post;
     }
 
-    /**
-     * Get the message envelope.
-     */
+   
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -33,9 +32,7 @@ class CreateMail extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
+
     public function content(): Content
     {
         return new Content(

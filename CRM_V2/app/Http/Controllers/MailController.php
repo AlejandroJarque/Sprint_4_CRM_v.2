@@ -9,9 +9,22 @@ use App\Mail\WelcomeMail;
 
 class MailController extends Controller
 {
-    public function send()
+    public function indexAction()
     {
+
+        return view('mails.post');
+    }
+
+    public function sendAction(Request $request)
+    {
+        $data = $request->validate([
+        'title' => 'required|string',
+        'post'  => 'required|string',
+    ]);
+
         Mail::to('user@email.com')
-            ->send(new CreateMail());
+            ->send(new CreateMail($data['title'], $data['post']));
+        
+        return redirect()->route('post')->with('success', 'Post send correctly');
     }
 }
