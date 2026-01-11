@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,6 +74,12 @@ Route::prefix('crm')->middleware('auth')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'indexAction'])
     ->name('crm.dashboard');
+
+    Route::get('/post', [\App\Http\Controllers\MailController::class, 'indexAction'])
+    ->name('post');
+
+    Route::post('/mails/mail', [\App\Http\Controllers\MailController::class, 'sendAction'])
+    ->name('post.send');
 
 });
 
