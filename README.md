@@ -30,9 +30,6 @@ In the case of the views, I've basically created one for each CRUD function: ind
 ## DB(Workbench):
 The database only includes three tables: Users, Clients, and Activities, each with its respective foreign keys. Clients has a foreign key from Users, and Activities has one foreign key from Clients and another from Users.
 
-## Technologies and Gadgets:
-MVC architectural pattern | Tailwind | Laravel | PHP | Composer | Node.Js | Workbench | Visual Studio Code | GitHub| Git | Xampp | Breeze | Mailtrap.io
-
 ## Authentication:
 To discuss authentication, I will divide the text into 2 parts.
 
@@ -42,6 +39,9 @@ Later, I decided to migrate the authentication system to an "improved" model usi
 
 ## Mailing:
 To add messaging, I used the mailtrip.io platform to generate emails that arrive in a sandbox, and I applied a new view to generate posts once the user is logged in.
+
+## Technologies and Gadgets:
+MVC architectural pattern | Tailwind | Laravel | PHP | Composer | Node.Js | Workbench | Visual Studio Code | GitHub| Git | Xampp | Breeze | Mailtrap.io
 
 ## Facility:
 Download PHP, composer and Node.js Once you've got everything you'll be able to download Laravel: composer global require laravel/installer Create a new proyect with Laravel, on the terminal: laravel new example-app Create the repository and initilize it: git init
