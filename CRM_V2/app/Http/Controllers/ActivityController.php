@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Activity;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
@@ -26,7 +27,11 @@ class ActivityController extends Controller
     public function storeAction(Request $request)
     {
         $validated = $request->validate([
-            'client_id' => 'required|integer',
+            'client_id' => ['required',
+                Rule::exists('clients', 'id')->where(function ($query) {
+                $query->where('user_id', Auth::id());
+                }),
+            ],
             'type' => 'required|string|max:100',
             'activity_date' => 'required|date',
             'status' => 'required|string|max:50',
@@ -84,7 +89,11 @@ class ActivityController extends Controller
         }
 
         $validated = $request->validate([
-            'client_id' => 'required|integer',
+            'client_id' => ['required',
+                Rule::exists('clients', 'id')->where(function ($query) {
+                $query->where('user_id', Auth::id());
+                }),
+            ],
             'type' => 'required|string|max:100',
             'activity_date' => 'required|date',
             'status' => 'required|string|max:50',

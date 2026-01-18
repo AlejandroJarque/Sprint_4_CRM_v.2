@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->string('type');
             $table->date('activity_date');
-            $table->string('statud')->default('pending');
+            $table->string('status')->default('pending');
             $table->text('notes')->nullable();
             $table->timestamps();
             $table->foreign('user_id')
@@ -23,7 +23,7 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->foreign('client_id')
                   ->references('id')
-                  ->on('clientd')
+                  ->on('clients')
                   ->onDelete('cascade');
         });
     }
