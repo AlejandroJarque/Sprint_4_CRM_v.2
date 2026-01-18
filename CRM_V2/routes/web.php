@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DashboardController;
@@ -23,9 +25,14 @@ Route::prefix('crm')->middleware('auth')->group(function () {
         $request->user()->update(
             $request->validate([
                 'name'  => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-            ])
-        );
+                'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore(Auth::id()),
+            ],
+        ])
+     );
 
         return back()->with('success', 'Profile updated');
     })->name('profile.update');
