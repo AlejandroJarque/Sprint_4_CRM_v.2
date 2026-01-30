@@ -41,12 +41,7 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         return view('clients.show', compact('client'));
     }
@@ -55,12 +50,7 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         return view('clients.edit', compact('client'));
     }
@@ -69,12 +59,7 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -93,12 +78,7 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         $client->delete();
 
