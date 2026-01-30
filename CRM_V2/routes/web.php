@@ -1,13 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,27 +13,9 @@ Route::get('/', function () {
 
 Route::prefix('crm')->middleware('auth')->group(function () {
 
-    Route::get('/profile', function (Request $request) {
-        return view('profile', [
-            'user' => $request->user(),
-        ]);
-    })->name('profile');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
-    Route::put('/profile', function (Request $request) {
-        $request->user()->update(
-            $request->validate([
-                'name'  => 'required|string|max:255',
-                'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore(Auth::id()),
-            ],
-        ])
-     );
-
-        return back()->with('success', 'Profile updated');
-    })->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::controller(ClientController::class)->group(function () {
         Route::get('/clients', 'indexAction')->name('clients.index');

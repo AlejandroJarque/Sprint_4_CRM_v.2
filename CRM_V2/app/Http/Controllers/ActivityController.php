@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Activity;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreUpdateActivityRequest;
+use App\Models\Client;
 
 class ActivityController extends Controller
 {
@@ -21,25 +22,17 @@ class ActivityController extends Controller
 
     public function createAction()
     {
-        return view('activities.create');
+        $clients = Client::orderBy('name')->get();
+        return view('activities.create', ['clients' => $clients]);
     }
 
-    public function storeAction(Request $request)
+    public function storeAction(StoreUpdateActivityRequest $request)
     {
-        $validated = $request->validate([
-            'client_id' => ['required',
-                Rule::exists('clients', 'id')->where(function ($query) {
-                $query->where('user_id', Auth::id());
-                }),
-            ],
-            'type' => 'required|string|max:100',
-            'activity_date' => 'required|date',
-            'status' => 'required|string|max:50',
-        ]);
-
-         Activity::create(array_merge($validated, [
-            'user_id' => Auth::id(),
-        ]));
+        Activity::create(array_merge(
+            $request->validated(),
+            ['user_id' => Auth::id()]
+            )
+        );
 
         return redirect()->route('activities.index')
                          ->with('success', 'Activity registered successfully.');
@@ -72,34 +65,24 @@ class ActivityController extends Controller
                              ->with('error', 'Activity not found.');
         }
 
+        $clients = Client::orderBy('name')->get();
+
         return view('activities.edit', [
-            'activity' => $activity
+            'activity' => $activity,
+            'clients' => $clients,
         ]);
     }
 
-    public function updateAction(Request $request, $id)
+    public function updateAction(StoreUpdateActivityRequest $request, $id)
     {
-        $activity = Activity::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->first();
+        
+        $activity = Activity::findOrFail($id);
 
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found.');
-        }
-
-        $validated = $request->validate([
-            'client_id' => ['required',
-                Rule::exists('clients', 'id')->where(function ($query) {
-                $query->where('user_id', Auth::id());
-                }),
-            ],
-            'type' => 'required|string|max:100',
-            'activity_date' => 'required|date',
-            'status' => 'required|string|max:50',
-        ]);
-
-        $activity->update($validated);
+        $activity->update(array_merge(
+            $request->validated(),
+            ['user_id' => Auth::id()]
+            )
+        );
 
         return redirect()->route('activities.show', $activity->id)
                          ->with('success', 'Activity updated successfully');
