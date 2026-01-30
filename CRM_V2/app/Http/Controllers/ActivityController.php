@@ -42,12 +42,7 @@ class ActivityController extends Controller
     {
         $activity = Activity::where('id', $id)
                 ->where('user_id', Auth::id())
-                ->first();
-
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             -> with('error', 'Activity not found.');
-        }
+                ->firstOrFail();
 
         return view('activities.show', [
             'activity' => $activity
@@ -58,12 +53,7 @@ class ActivityController extends Controller
     {
         $activity = Activity::where('id', $id)
                 ->where('user_id', Auth::id())
-                ->first();
-
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found.');
-        }
+                ->firstOrFail();
 
         $clients = Client::orderBy('name')->get();
 
@@ -92,12 +82,7 @@ class ActivityController extends Controller
     {
         $activity = Activity::where('id', $id)
                 ->where('user_id', Auth::id())
-                ->first();
-
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found');
-        }
+                ->firstOrFail();
 
         $activity->delete();
 
