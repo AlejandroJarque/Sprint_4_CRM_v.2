@@ -22,7 +22,7 @@ class StoreUpdateActivityRequest extends FormRequest
     {
         return [
             'description' => 'nullable|string',
-            'activity_date' => 'required|date',
+            'activity_date' => 'required|date|after_or_equal:today',
             'client_id'   => 'required|exists:clients,id',
             'status'      => 'required|string|max:50',
             'type'        => 'required|string|max:50',

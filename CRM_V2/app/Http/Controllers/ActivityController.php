@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUpdateActivityRequest;
 use App\Models\Client;
+use App\Services\ActivityService;
 
 class ActivityController extends Controller
 {
@@ -26,13 +27,9 @@ class ActivityController extends Controller
         return view('activities.create', ['clients' => $clients]);
     }
 
-    public function storeAction(StoreUpdateActivityRequest $request)
+    public function storeAction(StoreUpdateActivityRequest $request, ActivityService $activityService)
     {
-        Activity::create(array_merge(
-            $request->validated(),
-            ['user_id' => Auth::id()]
-            )
-        );
+        $activityService->create($request->validated());
 
         return redirect()->route('activities.index')
                          ->with('success', 'Activity registered successfully.');
@@ -63,28 +60,19 @@ class ActivityController extends Controller
         ]);
     }
 
-    public function updateAction(StoreUpdateActivityRequest $request, $id)
+    public function updateAction(StoreUpdateActivityRequest $request, $id, ActivityService $activityService)
     {
-        
-        $activity = Activity::findOrFail($id);
 
-        $activity->update(array_merge(
-            $request->validated(),
-            ['user_id' => Auth::id()]
-            )
-        );
+        $activity = $activityService->update($id, $request->validated());
 
         return redirect()->route('activities.show', $activity->id)
                          ->with('success', 'Activity updated successfully');
     }
 
-    public function deleteAction($id)
+    public function deleteAction($id, ActivityService $activityService)
     {
-        $activity = Activity::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->firstOrFail();
 
-        $activity->delete();
+        $activityService->delete($id);
 
         return redirect()->route('activities.index')
                          ->with('success', 'Activity deleted successfully');
