@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ClientService;
 
 class ClientController extends Controller
 {
@@ -20,7 +21,7 @@ class ClientController extends Controller
         return view('clients.create');
     }
 
-    public function storeAction(Request $request)
+    public function storeAction(Request $request, ClientService $clientService)
     {
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -29,9 +30,7 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
         ]);
 
-        Client::create(array_merge($validated, [
-            'user_id' => Auth::id(),
-        ]));
+        $clientService->create($validated);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client registered successfully.');
@@ -55,11 +54,8 @@ class ClientController extends Controller
         return view('clients.edit', compact('client'));
     }
 
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, ClientService $clientService)
     {
-        $client = Client::where('id', $id)
-                        ->where('user_id', Auth::id())
-                        ->firstOrFail();
 
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -68,19 +64,16 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
         ]);
 
-        $client->update($validated);
+        $client = $clientService->update($id, $validated);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client updated successfully.');
     }
 
-    public function deleteAction($id)
+    public function deleteAction($id, ClientService $clientService)
     {
-        $client = Client::where('id', $id)
-                        ->where('user_id', Auth::id())
-                        ->firstOrFail();
 
-        $client->delete();
+        $clientService->delete($id);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client deleted successfully.');
