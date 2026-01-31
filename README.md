@@ -40,91 +40,91 @@ Later, I decided to migrate the authentication system to an "improved" model usi
 ## Mailing:
 To add messaging, I used the mailtrip.io platform to generate emails that arrive in a sandbox, and I applied a new view to generate posts once the user is logged in.
 
+## Post view:
+This section is the result of adding email marketing to the CRM. The idea was to allow users to send emails directly from the website without having to use Gmail or similar services. The user simply defines the post title and generates the content, then clicks send, and the email is sent to the selected recipient.
+The customer selector ensures domain and UX consistency.
+The email is currently being sent to Mailtrap, as it's a development environment,
+but the system is ready for live, production sending.
+
 ## Technologies and Gadgets:
 MVC architectural pattern | Tailwind | Laravel | PHP | Composer | Node.Js | Workbench | Visual Studio Code | GitHub| Git | Xampp | Breeze | Mailtrap.io
 
-## Facility:
+## Facility (How to install):
 Download PHP, composer and Node.js Once you've got everything you'll be able to download Laravel: composer global require laravel/installer Create a new proyect with Laravel, on the terminal: laravel new example-app Create the repository and initilize it: git init
 
 Create a develop branch and define it as default from the main branch: git checkout -b develop main Generate branches for each module starting from the develop branch: - git checkout -b feature/setup_generals develop (that one isn't necesary, but as we did i highlight it) - git checkout -b feature/users develop - git checkout -b feature/tasks develop - git checkout -b feature/categories develop Once every branch was finished switch the branch to the develop and: - git merge feature/setup_generals (that one isn't necesary, but as we did i highlight it) - git merge feature/users - git merge feature/tasks - git merge feature/categories When every thing is done just make a pull request from develop branch to main branch from GitHub.
 
 ## Proyect structure:
-CRM_V2/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   │   ├── Controller.php
-│   │   │   ├── UserController.php
-│   │   │   ├── ClientController.php
-│   │   │   ├── ActivityController.php
-│   │   │   └── DashboardController.php
-│   │   └── Middleware/
-│   ├── Models/
-│   │   ├── User.php
-│   │   ├── Client.php
-│   │   └── Activity.php
-│   └── Providers/
-│
-├── bootstrap/
-│   └── app.php
-│
-├── config/
-│   └── (archivos de configuración Laravel)
-│
-├── database/
-│   ├── migrations/
-│   │   ├── 0001_01_01_000000_create_users_table.php
-│   │   ├── 2025_12_25_090152_create_clients_table.php
-│   │   └── 2025_12_26_090048_create_activities_table.php
-│   └── seeders/
-│
-├── public/
-│   ├── index.php
-│   └── images/
-│       ├── logo.png
-│       └── office.png
-│
-├── resources/
-│   ├── css/
-│   ├── js/
-│   └── views/
-│       ├── auth/
-│       │   ├── login.blade.php
-│       │   └── register.blade.php
-│       ├── clients/
-│       │   ├── index.blade.php
-│       │   ├── create.blade.php
-│       │   ├── edit.blade.php
-│       │   └── show.blade.php
-│       ├── activities/
-│       │   ├── index.blade.php
-│       │   ├── create.blade.php
-│       │   ├── edit.blade.php
-│       │   └── show.blade.php
-│       ├── partials/
-│       │   ├── header.blade.php
-│       │   └── footer.blade.php
-│       ├── dashboard.blade.php
-│       ├── layout.blade.php
-│       └── welcome.blade.php
-│
-├── routes/
-│   ├── web.php
-│   └── console.php
-│
-├── storage/
-│   └── (logs, cache, sessions si se usan)
-│
-├── tests/
-│
-├── vendor/
-│
-├── .env
-├── .env.example
-├── .gitignore
-├── artisan
-├── composer.json
-├── composer.lock
-├── package.json
-├── vite.config.js
-└── README.md
+app/
+app/Http/Controllers/
+- ActivityController.php
+- ClientController.php
+app/Http/Requests/
+- StoreUpdateActivityRequest.php
+- StoreUpdateClientRequest.php
+app/Services/
+- ActivityService.php
+- ClientService.php
+app/Models/
+- User.php
+- Client.php
+- Activity.php
+database/
+database/migrations/
+- create_users_table.php
+- create_clients_table.php
+- create_activities_table.php
+database/seeders/
+- DatabaseSeeder.php
+- UserSeeder.php
+- ClientSeeder.php
+- ActivitySeeder.php
+resources/
+resources/views/
+resources/views/layouts/
+- app.blade.php
+resources/views/clients/
+- index.blade.php
+- create.blade.php
+- edit.blade.php
+- show.blade.php
+resources/views/activities/
+- index.blade.php
+- create.blade.php
+- edit.blade.php
+- show.blade.php
+resources/views/errors/
+- 404.blade.php
+routes/
+- web.php
+- auth.php
+config/
+- app.php
+- auth.php
+- database.php
+- filesystems.php
+public/
+- index.php
+- css/
+- js/
+storage/
+- app/
+- framework/
+- logs/
+/
+- artisan
+- composer.json
+- composer.lock
+- package.json
+- phpunit.xml
+- README.md
+- .env
+- .env.example
+
+- Controllers are kept thin and only handle HTTP flow.
+- Business logic is encapsulated in the Services layer.
+- Validation is handled via FormRequest classes.
+- Error handling uses Laravel’s native mechanisms.
+- Seeders provide realistic demo data for development.
+- The structure follows Laravel best practices and is easy to maintain.
+
