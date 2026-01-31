@@ -28,31 +28,21 @@
         @csrf
 
         <div>
-            <label class="pr-10" for="client_id">Client ID</label>
-            <input
-                type="text"
-                class="border-2 border-white border-dotted text-black pl-2"
-                name="client_id"
-                id="client_id"
-                value="{{ old('client_id') }}">
+            <label class="pr-10" for="client_id">Client</label>
+            <select name="client_id" id="client_id"
+            class="border-2 border-white border-dotted text-black pl-2" required>
+
+                <option value="">-- Select client --</option>
+
+                @foreach ($clients as $client)
+                    <option value="{{$client->id}}"
+                        @selected(old('client_id') == $client->id)>
+                        {{$client->name}}
+                    </option>
+                @endforeach
+            </select>
 
             @error('client_id')
-                <div class="text-red-500">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <br>
-
-        <div>
-            <label class="pr-10" for="user_id">User ID</label>
-            <input
-                type="text"
-                class="border-2 border-white border-dotted text-black pl-2"
-                name="user_id"
-                id="user_id"
-                value="{{ old('user_id') }}">
-
-            @error('user_id')
                 <div class="text-red-500">{{ $message }}</div>
             @enderror
         </div>

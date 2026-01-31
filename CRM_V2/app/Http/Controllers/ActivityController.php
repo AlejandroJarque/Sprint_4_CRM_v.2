@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Activity;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreUpdateActivityRequest;
+use App\Models\Client;
+use App\Services\ActivityService;
 
 class ActivityController extends Controller
 {
 
     public function indexAction()
     {
-        $activities = Activity::where('user_id', Auth::id())->get();
+        $activities = Activity::where('user_id', Auth::id())
+            ->orderBy('activity_date')
+            ->paginate(5);
 
         return view('activities.index', [
             'activities' => $activities
@@ -21,25 +25,13 @@ class ActivityController extends Controller
 
     public function createAction()
     {
-        return view('activities.create');
+        $clients = Client::orderBy('name')->get();
+        return view('activities.create', ['clients' => $clients]);
     }
 
-    public function storeAction(Request $request)
+    public function storeAction(StoreUpdateActivityRequest $request, ActivityService $activityService)
     {
-        $validated = $request->validate([
-            'client_id' => ['required',
-                Rule::exists('clients', 'id')->where(function ($query) {
-                $query->where('user_id', Auth::id());
-                }),
-            ],
-            'type' => 'required|string|max:100',
-            'activity_date' => 'required|date',
-            'status' => 'required|string|max:50',
-        ]);
-
-         Activity::create(array_merge($validated, [
-            'user_id' => Auth::id(),
-        ]));
+        $activityService->create($request->validated());
 
         return redirect()->route('activities.index')
                          ->with('success', 'Activity registered successfully.');
@@ -49,12 +41,7 @@ class ActivityController extends Controller
     {
         $activity = Activity::where('id', $id)
                 ->where('user_id', Auth::id())
-                ->first();
-
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             -> with('error', 'Activity not found.');
-        }
+                ->firstOrFail();
 
         return view('activities.show', [
             'activity' => $activity
@@ -65,58 +52,29 @@ class ActivityController extends Controller
     {
         $activity = Activity::where('id', $id)
                 ->where('user_id', Auth::id())
-                ->first();
+                ->firstOrFail();
 
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found.');
-        }
+        $clients = Client::orderBy('name')->get();
 
         return view('activities.edit', [
-            'activity' => $activity
+            'activity' => $activity,
+            'clients' => $clients,
         ]);
     }
 
-    public function updateAction(Request $request, $id)
+    public function updateAction(StoreUpdateActivityRequest $request, $id, ActivityService $activityService)
     {
-        $activity = Activity::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->first();
 
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found.');
-        }
-
-        $validated = $request->validate([
-            'client_id' => ['required',
-                Rule::exists('clients', 'id')->where(function ($query) {
-                $query->where('user_id', Auth::id());
-                }),
-            ],
-            'type' => 'required|string|max:100',
-            'activity_date' => 'required|date',
-            'status' => 'required|string|max:50',
-        ]);
-
-        $activity->update($validated);
+        $activity = $activityService->update($id, $request->validated());
 
         return redirect()->route('activities.show', $activity->id)
                          ->with('success', 'Activity updated successfully');
     }
 
-    public function deleteAction($id)
+    public function deleteAction($id, ActivityService $activityService)
     {
-        $activity = Activity::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->first();
 
-        if(!$activity) {
-            return redirect()->route('activities.index')
-                             ->with('error', 'Activity not found');
-        }
-
-        $activity->delete();
+        $activityService->delete($id);
 
         return redirect()->route('activities.index')
                          ->with('success', 'Activity deleted successfully');

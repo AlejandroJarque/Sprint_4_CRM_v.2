@@ -10,6 +10,28 @@
 
     <br>
 
+    <div>
+        <label class="pr-12" for="client_id">Client</label>
+
+        <select
+            id="client_id"
+            name="client_id"
+            class="border-2 border-white border-dotted text-black pl-6 pr-2"
+            required
+        >
+            <option value="">-- Select a client --</option>
+
+            @foreach ($clients as $client)
+                <option value="{{ $client->id }}">
+                    {{ $client->name }}
+                </option>
+            @endforeach
+    </select>
+
+    </div>
+
+    <br>
+
     <form action="{{ route('post.send') }}" method="POST">
     @csrf
 

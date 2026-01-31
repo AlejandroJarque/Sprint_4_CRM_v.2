@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ClientService;
+use App\Http\Requests\StoreUpdateClientRequest;
 
 class ClientController extends Controller
 {
     public function indexAction()
     {
-        $clients = Client::where('user_id', Auth::id())->get();
+        $clients = Client::where('user_id', Auth::id())
+            ->orderBy('name')
+            ->paginate(5);
 
         return view('clients.index', compact('clients'));
     }
@@ -20,7 +24,7 @@ class ClientController extends Controller
         return view('clients.create');
     }
 
-    public function storeAction(Request $request)
+    public function storeAction(StoreUpdateClientRequest $request, ClientService $clientService)
     {
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -29,9 +33,7 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
         ]);
 
-        Client::create(array_merge($validated, [
-            'user_id' => Auth::id(),
-        ]));
+        $clientService->create($validated);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client registered successfully.');
@@ -41,12 +43,7 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         return view('clients.show', compact('client'));
     }
@@ -55,26 +52,13 @@ class ClientController extends Controller
     {
         $client = Client::where('id', $id)
                         ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
+                        ->firstOrFail();
 
         return view('clients.edit', compact('client'));
     }
 
-    public function updateAction(Request $request, $id)
+    public function updateAction(StoreUpdateClientRequest $request, $id, ClientService $clientService)
     {
-        $client = Client::where('id', $id)
-                        ->where('user_id', Auth::id())
-                        ->first();
-
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
 
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -83,24 +67,16 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
         ]);
 
-        $client->update($validated);
+        $client = $clientService->update($id, $validated);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client updated successfully.');
     }
 
-    public function deleteAction($id)
+    public function deleteAction($id, ClientService $clientService)
     {
-        $client = Client::where('id', $id)
-                        ->where('user_id', Auth::id())
-                        ->first();
 
-        if (!$client) {
-            return redirect()->route('clients.index')
-                             ->with('error', 'Client not found.');
-        }
-
-        $client->delete();
+        $clientService->delete($id);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client deleted successfully.');

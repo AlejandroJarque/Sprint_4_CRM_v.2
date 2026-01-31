@@ -64,6 +64,8 @@
         </tbody>
     </table>
 
+    <div class="mt-4">{{ $activities->links() }}</div>
+
     @if (session('success'))
         <div class="text-lime-400">
             {{ session('success') }}

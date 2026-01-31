@@ -27,32 +27,21 @@
         @method('PUT')
 
         <div>
-            <label class="pr-10" for="client_id">Client ID</label>
-            <input
-                type="text"
-                class="border-2 border-white border-dotted text-black pl-2"
-                id="client_id"
-                name="client_id"
-                value="{{ old('client_id', $activity->client_id) }}"
-            >
+            <label class="pr-10" for="client_id">Client</label>
+            <select name="client_id" id="client_id"
+            class="border-2 border-white border-dotted text-black pl-2" required>
+
+                <option value="">-- Select client --</option>
+
+                @foreach ($clients as $client)
+                    <option value="{{ $client->id }}"
+                        @selected(old('client_id', $activity->client_id) == $client->id)>
+                        {{$client->name}}
+                    </option>
+                @endforeach
+            </select>
 
             @error('client_id')
-                <div class="text-red-500">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <br>
-
-        <div>
-            <label class="pr-10" for="user_id">User ID</label>
-            <input
-                type="text"
-                class="border-2 border-white border-dotted text-black pl-2"
-                id="user_id"
-                name="user_id"
-                value="{{ old('user_id', $activity->user_id) }}">
-
-            @error('user_id')
                 <div class="text-red-500">{{ $message }}</div>
             @enderror
         </div>
