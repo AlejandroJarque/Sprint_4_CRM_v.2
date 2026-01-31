@@ -56,70 +56,70 @@ Create a develop branch and define it as default from the main branch: git check
 
 ## Proyect structure:
 app/
-app/Http/Controllers/
-- ActivityController.php
-- ClientController.php
-app/Http/Requests/
-- StoreUpdateActivityRequest.php
-- StoreUpdateClientRequest.php
-app/Services/
-- ActivityService.php
-- ClientService.php
-app/Models/
-- User.php
-- Client.php
-- Activity.php
+  app/Http/Controllers/
+  - ActivityController.php
+  - ClientController.php
+  app/Http/Requests/
+  - StoreUpdateActivityRequest.php
+  - StoreUpdateClientRequest.php
+  app/Services/
+  - ActivityService.php
+  - ClientService.php
+  app/Models/
+  - User.php
+  - Client.php
+  - Activity.php
 database/
-database/migrations/
-- create_users_table.php
-- create_clients_table.php
-- create_activities_table.php
-database/seeders/
-- DatabaseSeeder.php
-- UserSeeder.php
-- ClientSeeder.php
-- ActivitySeeder.php
+  database/migrations/
+  - create_users_table.php
+  - create_clients_table.php
+  - create_activities_table.php
+  database/seeders/
+  - DatabaseSeeder.php
+  - UserSeeder.php
+  - ClientSeeder.php
+  - ActivitySeeder.php
 resources/
-resources/views/
-resources/views/layouts/
-- app.blade.php
-resources/views/clients/
-- index.blade.php
-- create.blade.php
-- edit.blade.php
-- show.blade.php
-resources/views/activities/
-- index.blade.php
-- create.blade.php
-- edit.blade.php
-- show.blade.php
-resources/views/errors/
-- 404.blade.php
+  resources/views/
+  resources/views/layouts/
+  - app.blade.php
+  resources/views/clients/
+  - index.blade.php
+  - create.blade.php
+  - edit.blade.php
+  - show.blade.php
+  resources/views/activities/
+  - index.blade.php
+  - create.blade.php
+  - edit.blade.php
+  - show.blade.php
+  resources/views/errors/
+  - 404.blade.php
 routes/
-- web.php
-- auth.php
+  - web.php
+  - auth.php
 config/
-- app.php
-- auth.php
-- database.php
-- filesystems.php
+  - app.php
+  - auth.php
+  - database.php
+  - filesystems.php
 public/
-- index.php
-- css/
-- js/
+  - index.php
+  - css/
+  - js/
 storage/
-- app/
-- framework/
-- logs/
+  - app/
+  - framework/
+  - logs/
 /
-- artisan
-- composer.json
-- composer.lock
-- package.json
-- phpunit.xml
-- README.md
-- .env
-- .env.example
+  - artisan
+  - composer.json
+  - composer.lock
+  - package.json
+  - phpunit.xml
+  - README.md
+  - .env
+  - .env.example
 
 - Controllers are kept thin and only handle HTTP flow.
 - Business logic is encapsulated in the Services layer.
