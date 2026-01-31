@@ -128,3 +128,6 @@ storage/
 - Seeders provide realistic demo data for development.
 - The structure follows Laravel best practices and is easy to maintain.
 
+## Final comments:
+I decided to leave the field open for activities and status because, although it's a very good idea, I considered the possibility of making it a comment and allowing users to specify details in both cases. This way, the range of possibilities for activities increases, and each user can write what they need. Example: Meal with... at the restaurant... Example 2, status: postponed due to customer need...
+
