@@ -78,7 +78,7 @@
 
     </table>
 
-    <br>
+    <div class="mt-4">{{ $clients->links() }}</div>
 
     @if (session('success'))
         <div class="text-lime-400">

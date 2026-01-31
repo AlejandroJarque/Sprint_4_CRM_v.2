@@ -14,7 +14,9 @@ class ActivityController extends Controller
 
     public function indexAction()
     {
-        $activities = Activity::where('user_id', Auth::id())->get();
+        $activities = Activity::where('user_id', Auth::id())
+            ->orderBy('activity_date')
+            ->paginate(5);
 
         return view('activities.index', [
             'activities' => $activities

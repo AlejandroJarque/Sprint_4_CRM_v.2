@@ -6,12 +6,15 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClientService;
+use App\Http\Requests\StoreUpdateClientRequest;
 
 class ClientController extends Controller
 {
     public function indexAction()
     {
-        $clients = Client::where('user_id', Auth::id())->get();
+        $clients = Client::where('user_id', Auth::id())
+            ->orderBy('name')
+            ->paginate(5);
 
         return view('clients.index', compact('clients'));
     }
@@ -21,7 +24,7 @@ class ClientController extends Controller
         return view('clients.create');
     }
 
-    public function storeAction(Request $request, ClientService $clientService)
+    public function storeAction(StoreUpdateClientRequest $request, ClientService $clientService)
     {
         $validated = $request->validate([
             'name'    => 'required|string|min:2|max:100|regex:/^[A-Za-zÀ-ÿ\s]+$/',
@@ -54,7 +57,7 @@ class ClientController extends Controller
         return view('clients.edit', compact('client'));
     }
 
-    public function updateAction(Request $request, $id, ClientService $clientService)
+    public function updateAction(StoreUpdateClientRequest $request, $id, ClientService $clientService)
     {
 
         $validated = $request->validate([
